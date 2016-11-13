@@ -1,4 +1,4 @@
--- luacheck: globals NeP C_Timer
+-- luacheck: globals NeP
 local addonname, TL         = ...
 local UnitExists            = UnitExists
 local UnitCanAttack         = UnitCanAttack
@@ -10,7 +10,7 @@ local SetOverrideBinding    = SetOverrideBinding
 local ClearOverrideBindings = ClearOverrideBindings
 local NeP                   = NeP
 
-TL.Version                  = 0.1
+TL.Version                  = 0.11
 
 local config  = {
 	key      = "NeP_TargetLock",
@@ -23,14 +23,17 @@ local config  = {
       type    = "checkbox",
       text    = "Use Focus as Target Lock",
       key     = "UseFocus",
-      desc    = "In combat your focus target will be used as a target lock leaving you free to tab target without interupting your DPS. Use a focus macro or keybind to change your focus target.",
+      desc    = "In combat your focus target will be used as a target lock leaving you free to" ..
+					"tab target without interupting your DPS. Use a focus macro or keybind to change your" ..
+					"focus target.",
       default = false
     },
     {
       type    = "checkbox",
       text    = "Rebind Shift-Tab to Focus Target",
       key     = "RefocusShiftTab",
-      desc    = "Focus your target using shift-tab. Uses a temporary keybind override so the default keybind is kept in tact when this is unchecked or this addon is not loaded.",
+      desc    = "Focus your target using shift-tab. Uses a temporary keybind override so the" ..
+					"default keybind is kept in tact when this is unchecked or this addon is not loaded.",
       default = false
     }
 	}
@@ -40,19 +43,19 @@ local GUI = NeP.Interface:BuildGUI(config)
 NeP.Interface:Add("Target Lock V:"..TL.Version, function() GUI:Show() end)
 GUI:Hide()
 
-local IsGoodUnit = function(unit)
+local function IsGoodUnit(unit)
   return UnitExists(unit) and UnitCanAttack("player", unit) and not UnitIsDeadOrGhost(unit)
 end
 
-local UseFocus = function()
+local function UseFocus()
   return NeP.Interface:Fetch("NeP_TargetLock", "UseFocus")
 end
 
-local RefocusShiftTab = function()
+local function RefocusShiftTab()
   return NeP.Interface:Fetch("NeP_TargetLock", "RefocusShiftTab")
 end
 
-local IsMasterToggled = function()
+local function IsMasterToggled()
   return NeP.DSL:Get('toggle')(nil, 'mastertoggle')
 end
 
