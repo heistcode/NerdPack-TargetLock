@@ -41,7 +41,7 @@ local config  = {
 
 local GUI = NeP.Interface:BuildGUI(config)
 NeP.Interface:Add("Target Lock V:"..TL.Version, function() GUI:Show() end)
-GUI:Hide()
+GUI.parent:Hide()
 
 local function IsGoodUnit(unit)
   return UnitExists(unit) and UnitCanAttack("player", unit) and not UnitIsDeadOrGhost(unit)
